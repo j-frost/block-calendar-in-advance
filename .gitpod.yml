@@ -1,0 +1,11 @@
+tasks:
+  - name: Script
+    init: npm install
+    command: npm run build
+
+image:
+  file: .gitpod.Dockerfile
+
+vscode:
+  extensions:
+    - atlassian.atlascode
