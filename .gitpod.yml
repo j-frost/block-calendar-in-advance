@@ -1,6 +1,5 @@
 tasks:
-  - name: Script
-    init: npm install
+  - init: npm install
     command: npm run build
 
 image:

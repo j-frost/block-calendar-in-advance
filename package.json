@@ -1,7 +1,7 @@
 {
     "name": "block-calendar-in-advance",
-    "version": "0.0.1",
-    "description": "Block Google Calendar from inside of an AppsScript project",
+    "version": "1.0.0",
+    "description": "Block Google Calendar time slots automatically from inside of an AppsScript project",
     "main": "src/index.ts",
     "scripts": {
         "clean": "rimraf dist/",
@@ -17,6 +17,7 @@
     "devDependencies": {
         "@types/chai": "^4.3.0",
         "@types/google-apps-script": "^1.0.45",
+        "@types/luxon": "^2.0.9",
         "@types/mocha": "^9.1.0",
         "@types/sinon": "^10.0.8",
         "@types/sinon-chai": "^3.2.8",
@@ -47,5 +48,8 @@
         "type": "git",
         "url": "git@github.com:j-frost/block-calendar-in-advance.git",
         "directory": "."
+    },
+    "dependencies": {
+        "luxon": "^2.3.0"
     }
 }
