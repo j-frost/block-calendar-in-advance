@@ -12,12 +12,7 @@ export function invertCalendarFreeBusy(
     within: Required<GoogleAppsScript.Calendar.Schema.TimePeriod>
 ): GoogleAppsScript.Calendar.Schema.TimePeriod[] {
     if (busy.length === 0) {
-        return [
-            {
-                start: DateTime.fromISO(within.start).toISO(),
-                end: DateTime.fromISO(within.end).toISO(),
-            },
-        ];
+        return [within];
     }
 
     busy = [
