@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 import { DateTime } from 'luxon';
+import { MyTimePeriod } from './block-calendar-in-advance';
 import { invertCalendarFreeBusy } from './invert-calendar-free-busy';
 
 describe('Inverting calendar free and busy', () => {
-    let busy: Required<GoogleAppsScript.Calendar.Schema.TimePeriod>[] = [];
-    const within: Required<GoogleAppsScript.Calendar.Schema.TimePeriod> = {
+    let busy: MyTimePeriod[] = [];
+    const within: MyTimePeriod = {
         start: DateTime.now().startOf('day').toISO(),
         end: DateTime.now().endOf('day').toISO(),
     };

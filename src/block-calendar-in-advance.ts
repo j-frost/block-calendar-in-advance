@@ -12,6 +12,7 @@ const WEEKEND_DAYS = [6, 7];
 export function blockCalendarInAdvance(): void {
     let dayCounter = 0;
     let daysProcessed = 0;
+
     while (daysProcessed < 3) {
         dayCounter++;
         if (WEEKEND_DAYS.includes(DateTime.now().plus({ days: dayCounter }).weekday)) {
@@ -19,17 +20,20 @@ export function blockCalendarInAdvance(): void {
         }
         daysProcessed++;
 
+        const startOfWorkday = DateTime.now()
+            .plus({ days: dayCounter })
+            .set({ hour: START_OF_WORKDAY })
+            .startOf('hour')
+            .toISO();
+        const endOfWorkday = DateTime.now()
+            .plus({ days: dayCounter })
+            .set({ hour: END_OF_WORKDAY })
+            .startOf('hour')
+            .toISO();
+
         const freeBusy = Calendar.Freebusy?.query({
-            timeMin: DateTime.now()
-                .plus({ days: dayCounter })
-                .set({ hour: START_OF_WORKDAY })
-                .startOf('hour')
-                .toISO(),
-            timeMax: DateTime.now()
-                .plus({ days: dayCounter })
-                .set({ hour: END_OF_WORKDAY })
-                .startOf('hour')
-                .toISO(),
+            timeMin: startOfWorkday,
+            timeMax: endOfWorkday,
             timeZone: 'Europe/Berlin',
             items: [{ id: 'primary' }],
         });
@@ -40,18 +44,7 @@ export function blockCalendarInAdvance(): void {
 
         const free = invertCalendarFreeBusy(
             freeBusy.calendars.primary.busy?.filter(isRequiredTimeperiod) || [],
-            {
-                start: DateTime.now()
-                    .plus({ days: dayCounter })
-                    .set({ hour: START_OF_WORKDAY })
-                    .startOf('hour')
-                    .toISO(),
-                end: DateTime.now()
-                    .plus({ days: dayCounter })
-                    .set({ hour: END_OF_WORKDAY })
-                    .startOf('hour')
-                    .toISO(),
-            }
+            { start: startOfWorkday, end: endOfWorkday }
         );
 
         for (const slot of free) {
@@ -75,8 +68,8 @@ function hasPrimaryFreeBusy(
     return calendars !== undefined && 'primary' in calendars;
 }
 
-function isRequiredTimeperiod(
-    period?: GoogleAppsScript.Calendar.Schema.TimePeriod
-): period is Required<GoogleAppsScript.Calendar.Schema.TimePeriod> {
+function isRequiredTimeperiod(period?: GoogleAppsScript.Calendar.Schema.TimePeriod): period is MyTimePeriod {
     return period !== undefined && 'start' in period && 'end' in period;
 }
+
+export type MyTimePeriod = Required<GoogleAppsScript.Calendar.Schema.TimePeriod>;
