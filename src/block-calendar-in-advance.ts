@@ -4,19 +4,32 @@ import { invertCalendarFreeBusy } from './invert-calendar-free-busy';
 const START_OF_WORKDAY = 8;
 const END_OF_WORKDAY = 18;
 const EVENT_COLOR_ID = '1';
+const WEEKEND_DAYS = [6, 7];
 
 /**
  * Blocks Google Calendar three days in advance.
  */
 export function blockCalendarInAdvance(): void {
-    for (let i = 0; i < 3; i++) {
-        if ([6, 7].includes(DateTime.now().plus({ days: i }).weekday)) {
+    let dayCounter = 0;
+    let daysProcessed = 0;
+    while (daysProcessed < 3) {
+        dayCounter++;
+        if (WEEKEND_DAYS.includes(DateTime.now().plus({ days: dayCounter }).weekday)) {
             continue;
         }
+        daysProcessed++;
 
         const freeBusy = Calendar.Freebusy?.query({
-            timeMin: DateTime.now().plus({ days: i }).set({ hour: START_OF_WORKDAY }).startOf('hour').toISO(),
-            timeMax: DateTime.now().plus({ days: i }).set({ hour: END_OF_WORKDAY }).startOf('hour').toISO(),
+            timeMin: DateTime.now()
+                .plus({ days: dayCounter })
+                .set({ hour: START_OF_WORKDAY })
+                .startOf('hour')
+                .toISO(),
+            timeMax: DateTime.now()
+                .plus({ days: dayCounter })
+                .set({ hour: END_OF_WORKDAY })
+                .startOf('hour')
+                .toISO(),
             timeZone: 'Europe/Berlin',
             items: [{ id: 'primary' }],
         });
@@ -29,11 +42,15 @@ export function blockCalendarInAdvance(): void {
             freeBusy.calendars.primary.busy?.filter(isRequiredTimeperiod) || [],
             {
                 start: DateTime.now()
-                    .plus({ days: i })
+                    .plus({ days: dayCounter })
                     .set({ hour: START_OF_WORKDAY })
                     .startOf('hour')
                     .toISO(),
-                end: DateTime.now().plus({ days: i }).set({ hour: END_OF_WORKDAY }).startOf('hour').toISO(),
+                end: DateTime.now()
+                    .plus({ days: dayCounter })
+                    .set({ hour: END_OF_WORKDAY })
+                    .startOf('hour')
+                    .toISO(),
             }
         );
 
