@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { invertCalendarFreeBusy } from './invert-calendar-free-busy';
 
-const START_OF_WORKDAY = 8;
+const START_OF_WORKDAY = 10;
 const END_OF_WORKDAY = 18;
 const EVENT_COLOR_ID = '1';
 const WEEKEND_DAYS = [6, 7];
