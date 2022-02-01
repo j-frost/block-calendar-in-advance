@@ -1,6 +1,6 @@
 # block-calendar-in-advance
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/.../...)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/j-frost/block-calendar-in-advance)
 
 > Will block Google Calendar into the future automatically. 
 
