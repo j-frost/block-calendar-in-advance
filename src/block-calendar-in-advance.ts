@@ -1,22 +1,19 @@
 import { DateTime } from 'luxon';
 import { invertCalendarFreeBusy } from './invert-calendar-free-busy';
-
-const NUMBER_OF_DAYS_TO_PROCESS = 4;
-const WEEKEND_DAYS = [6, 7];
-const START_OF_WORKDAY = 10;
-const END_OF_WORKDAY = 18;
-const EVENT_COLOR_ID = '1';
+import { BlockCalendarInAdvanceOptions } from './typings';
 
 /**
  * Blocks Google Calendar three days in advance.
+ *
+ * @param {BlockCalendarInAdvanceOptions} options how to create blocker events
  */
-export function blockCalendarInAdvance(): void {
+export function blockCalendarInAdvance(options: BlockCalendarInAdvanceOptions): void {
     let dayPointer = -1;
     let daysProcessed = 0;
 
-    while (daysProcessed < NUMBER_OF_DAYS_TO_PROCESS) {
+    while (daysProcessed < options.numberOfDaysToBlock) {
         dayPointer++;
-        if (WEEKEND_DAYS.includes(DateTime.now().plus({ days: dayPointer }).weekday)) {
+        if (options.skipDays.includes(DateTime.now().plus({ days: dayPointer }).weekday)) {
             continue;
         }
         daysProcessed++;
@@ -28,19 +25,19 @@ export function blockCalendarInAdvance(): void {
 
         const startOfWorkday = DateTime.now()
             .plus({ days: dayPointer })
-            .set({ hour: START_OF_WORKDAY })
+            .set({ hour: options.startOfWorkday })
             .startOf('hour')
             .toISO();
         const endOfWorkday = DateTime.now()
             .plus({ days: dayPointer })
-            .set({ hour: END_OF_WORKDAY })
+            .set({ hour: options.endOfWorkday })
             .startOf('hour')
             .toISO();
 
         const freeBusy = Calendar.Freebusy?.query({
             timeMin: startOfWorkday,
             timeMax: endOfWorkday,
-            timeZone: 'Europe/Berlin',
+            timeZone: Calendar.Settings?.get('timezone').value,
             items: [{ id: 'primary' }],
         });
 
@@ -48,19 +45,19 @@ export function blockCalendarInAdvance(): void {
             throw new Error('Could not get free/busy information for primary calendar');
         }
         const busy = freeBusy.calendars.primary.busy?.filter(isRequiredTimeperiod) || [];
-        console.log(`Got busy periods:`, busy);
+        console.log('Got busy periods:', busy);
 
         const free = invertCalendarFreeBusy(busy, { start: startOfWorkday, end: endOfWorkday });
-        console.log(`Calculated free periods:`, free);
+        console.log('Calculated free periods:', free);
 
         for (const slot of free) {
             Calendar.Events?.insert(
                 {
                     start: { dateTime: slot.start },
                     end: { dateTime: slot.end },
-                    summary: 'Do not book',
-                    description: "Please don't book this time slot unless absolutely necessary.",
-                    colorId: EVENT_COLOR_ID,
+                    summary: options.event.summary,
+                    description: options.event.description,
+                    colorId: options.event.colorId,
                 },
                 'primary'
             );
