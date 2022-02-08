@@ -10,19 +10,25 @@
 
 There is a version of this script publicly available as a library. Here's how to set it up.
 
-1. Go to [script.new](script.new) and create a new Google Apps Script project.
+1. Go to [script.new](https://script.new/) and create a new Google Apps Script project.
 1. Click the **+** next to **Libraries** and search for script ID `14Ik3cFF-UHgss_5yZKokAiLRMdKZVsn_ZVlP_LRVqo3pMkLNrone0Z4C`.
 1. Choose the newest version number for a fixed deployment or HEAD if you want to always run the newest version.
 1. Don't change the name. Click **Add**.
 1. Click the **+** next to **Services**.
 1. Select **Google Calendar API** from the list.
 1. Don't change the name. Click **Add**.
+1. (Optional) Make sure your script is running in your time zone. To do this,
+    1. Click the gear icon (**Project Settings**).
+    1. Enable the checkbox next to `Show "appsscript.json" manifest file in editor`.
+    1. Switch back to the editor.
+    1. There should now be a new file called `appsscript.json` for you to edit.
+    1. Select it and you'll find the `timeZone` setting.
 
-Finally, replace the function's code. Instead of 
+Finally, replace the function's code. Instead of
 
 ```javascript
 function myFunction() {
-  
+
 }
 ```
 
@@ -44,14 +50,14 @@ function myFunction() {
 }
 ```
 
-In the above code, replace values as you see fit. You can also completely delete lines if you want to use the defaults; or comment them out with `//` at the start of the line. To test your settings, hit the **Save** button or CTRL+S, then click **Run**. The first time running you'll have to grant your script project access to Google Calendar. 
+In the above code, replace values as you see fit. You can also completely delete lines if you want to use the defaults; or comment them out with `//` at the start of the line. To test your settings, hit the **Save** button or CTRL+S, then click **Run**. The first time running you'll have to grant your script project access to Google Calendar.
 
 Now check your Calendar for results!
 
-To make the script run periodically, click on the clock icon (**Triggers**) in the left-most side bar. Create a new trigger. If you want it to run hourly, you can just leave the default settings as the are and hit **Save**. 
+To make the script run periodically, click on the clock icon (**Triggers**) in the left-most side bar. Create a new trigger. If you want it to run hourly, you can just leave the default settings as the are and hit **Save**.
 
 ### Developers
 
-Open this project using the Gitpod link at the top and take a peek at `.gitpod.yml`. It details how to get the project running. 
+Open this project using the Gitpod link at the top and take a peek at `.gitpod.yml`. It details how to get the project running.
 
 You'll need node.js and npm in your development environment; and to deploy your own version I strongly recommend you take a look at [@google/clasp](https://github.com/google/clasp).
