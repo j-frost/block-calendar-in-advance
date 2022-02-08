@@ -45,6 +45,7 @@ function myFunction() {
       summary: 'My blocker event', // the "title" of the event (shows up on Google Calendar UI immediately), defaults to 'Do not book'
       description: "Jerry: Don't book this. Ever.", // the description of the Calendar event; use this to add hints on when this blocker may be ignored, defaults to "Please don't book this time slot unless absolutely necessary."
       colorId: '1', // the ID of the (custom) color you'd like the events to be created as (usually 1-9, but can differ depending on Calendar settings), defaults to the calendar's color
+      useDefaultReminders: true, // whether to use default Calendar event reminders or not, defaults to false
     },
   });
 }

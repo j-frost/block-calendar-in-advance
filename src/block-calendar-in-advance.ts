@@ -58,6 +58,10 @@ export function blockCalendarInAdvance(options: BlockCalendarInAdvanceOptions): 
                     summary: options.event.summary,
                     description: options.event.description,
                     colorId: options.event.colorId,
+                    reminders: {
+                        overrides: options.event.useDefaultReminders ? undefined : [],
+                        useDefault: options.event.useDefaultReminders,
+                    },
                 },
                 'primary'
             );

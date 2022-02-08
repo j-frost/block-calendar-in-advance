@@ -5,7 +5,8 @@ export interface BlockCalendarInAdvanceOptions {
     skipDays: number[];
     event: {
         summary: string;
-        description: string;
-        colorId: string;
+        description?: string;
+        colorId?: string;
+        useDefaultReminders: boolean;
     };
 }

@@ -14,7 +14,8 @@ const DEFAULTS: BlockCalendarInAdvanceOptions = {
     event: {
         summary: 'Do not book',
         description: "Please don't book this time slot unless absolutely necessary.",
-        colorId: '',
+        colorId: undefined,
+        useDefaultReminders: false,
     },
 };
 
@@ -37,6 +38,7 @@ global.runDefault = () => {
  * @param {string} options.event.summary the "title" of the event (shows up on Google Calendar UI immediately), defaults to 'Do not book'
  * @param {string} options.event.description the description of the Calendar event; use this to add hints on when this blocker may be ignored, defaults to "Please don't book this time slot unless absolutely necessary."
  * @param {string} options.event.colorId the ID of the (custom) color you'd like the events to be created as (usually 1-9, but can differ depending on Calendar settings), defaults to the default color
+ * @param {boolean} options.event.useDefaultReminders whether to use default Calendar event reminders or not, defaults to false
  */
 global.runWithConfig = (options: BlockCalendarInAdvanceOptions) => {
     blockCalendarInAdvance(Object.assign(DEFAULTS, options));
