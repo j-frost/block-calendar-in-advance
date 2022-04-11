@@ -47,7 +47,11 @@ export function blockCalendarInAdvance(options: BlockCalendarInAdvanceOptions): 
         const busy = freeBusy.calendars.primary.busy?.filter(isRequiredTimeperiod) || [];
         console.log('Got busy periods:', busy);
 
-        const free = invertCalendarFreeBusy(busy, { start: startOfWorkday, end: endOfWorkday });
+        const free = invertCalendarFreeBusy(busy, { start: startOfWorkday, end: endOfWorkday }).filter(
+            (free) =>
+                DateTime.fromISO(free.end).diff(DateTime.fromISO(free.start)).as('minutes') >=
+                options.minimumMinutesToBlock
+        );
         console.log('Calculated free periods:', free);
 
         for (const slot of free) {

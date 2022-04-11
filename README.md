@@ -47,6 +47,7 @@ function myFunction() {
       colorId: '1', // the ID of the (custom) color you'd like the events to be created as (usually 1-9, but can differ depending on Calendar settings), defaults to the calendar's color
       useDefaultReminders: true, // whether to use default Calendar event reminders or not, defaults to false
     },
+    minimumMinutesToBlock: 15, // minimum number of free minutes to block (use this to avoid small blocked periods like five minute gaps between events), defaults to 0
   });
 }
 ```

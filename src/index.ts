@@ -17,6 +17,7 @@ const DEFAULTS: BlockCalendarInAdvanceOptions = {
         colorId: undefined,
         useDefaultReminders: false,
     },
+    minimumMinutesToBlock: 0,
 };
 
 /**
@@ -39,6 +40,7 @@ global.runDefault = () => {
  * @param {string} options.event.description the description of the Calendar event; use this to add hints on when this blocker may be ignored, defaults to "Please don't book this time slot unless absolutely necessary."
  * @param {string} options.event.colorId the ID of the (custom) color you'd like the events to be created as (usually 1-9, but can differ depending on Calendar settings), defaults to the default color
  * @param {boolean} options.event.useDefaultReminders whether to use default Calendar event reminders or not, defaults to false
+ * @param {number} options.minimumMinutesToBlock minimum number of free minutes to block (use this to avoid small blocked periods like five minute gaps between events), defaults to 0
  */
 global.runWithConfig = (options: BlockCalendarInAdvanceOptions) => {
     blockCalendarInAdvance(Object.assign(DEFAULTS, options));

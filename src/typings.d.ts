@@ -9,4 +9,5 @@ export interface BlockCalendarInAdvanceOptions {
         colorId?: string;
         useDefaultReminders: boolean;
     };
+    minimumMinutesToBlock: number;
 }
