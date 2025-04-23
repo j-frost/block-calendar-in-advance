@@ -1,7 +1,5 @@
 # block-calendar-in-advance
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/j-frost/block-calendar-in-advance)
-
 > Will block Google Calendar into the future automatically.
 
 ## Installation
@@ -60,6 +58,6 @@ To make the script run periodically, click on the clock icon (**Triggers**) in t
 
 ### Developers
 
-Open this project using the Gitpod link at the top and take a peek at `.gitpod.yml`. It details how to get the project running.
+Open this project using [Firebase Studio](https://studio.firebase.google.com/) and get started! If something's not working for you or you want to check this project out locally, take a peek at `.idx/dev.nix`. It details how to get the project running.
 
 You'll need node.js and npm in your development environment; and to deploy your own version I strongly recommend you take a look at [@google/clasp](https://github.com/google/clasp).

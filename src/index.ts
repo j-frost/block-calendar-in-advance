@@ -35,7 +35,7 @@ global.runDefault = () => {
  * @param {number} options.startOfWorkday from when (= which hour of the day) to create blocker events on each day, defaults to 9
  * @param {number} options.endOfWorkday until when (= which hour of the day) to create blocker events on each day, defaults to 17
  * @param {number[]} options.skipDays list of days to skip when creating blocker events, f.i. weekends (Monday = 1, Sunday = 7), defaults to [6, 7] (Saturday and Sunday)
- * @param {{summary: string, description: string, colorId: string}}} options.event what blocker events should look like
+ * @param {{summary: string, description: string, colorId: string}} options.event what blocker events should look like
  * @param {string} options.event.summary the "title" of the event (shows up on Google Calendar UI immediately), defaults to 'Do not book'
  * @param {string} options.event.description the description of the Calendar event; use this to add hints on when this blocker may be ignored, defaults to "Please don't book this time slot unless absolutely necessary."
  * @param {string} options.event.colorId the ID of the (custom) color you'd like the events to be created as (usually 1-9, but can differ depending on Calendar settings), defaults to the default color

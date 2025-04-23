@@ -18,7 +18,7 @@ export function blockCalendarInAdvance(options: BlockCalendarInAdvanceOptions): 
         }
         daysProcessed++;
         console.log(
-            `Processing day number ${daysProcessed}, today + ${dayPointer} (${DateTime.now()
+            `Processing day number ${String(daysProcessed)}, today + ${String(dayPointer)} (${DateTime.now()
                 .plus({ days: dayPointer })
                 .toISODate()})`
         );
@@ -41,10 +41,10 @@ export function blockCalendarInAdvance(options: BlockCalendarInAdvanceOptions): 
             items: [{ id: 'primary' }],
         });
 
-        if (!freeBusy || !hasPrimaryFreeBusy(freeBusy?.calendars)) {
+        if (!freeBusy || !hasPrimaryFreeBusy(freeBusy.calendars)) {
             throw new Error('Could not get free/busy information for primary calendar');
         }
-        const busy = freeBusy.calendars.primary.busy?.filter(isRequiredTimeperiod) || [];
+        const busy = freeBusy.calendars.primary.busy?.filter(isRequiredTimeperiod) ?? [];
         console.log('Got busy periods:', busy);
 
         const free = invertCalendarFreeBusy(busy, { start: startOfWorkday, end: endOfWorkday }).filter(
